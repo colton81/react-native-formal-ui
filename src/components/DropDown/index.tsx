@@ -338,7 +338,6 @@ export const Dropdown = forwardRef(
           if (refList?.current) {
             const defaultValue =
               typeof value === "object" ? _get(value, valueField) : value
-
             const index = _findIndex(listData, (e) =>
               _isEqual(defaultValue, _get(e, valueField))
             )
@@ -347,11 +346,11 @@ export const Dropdown = forwardRef(
               index > -1 &&
               index <= listData?.length - 1
             ) {
-              try {
-                //  scrollToSelectedItem()
+              //  scrollToSelectedItem()
+              setOpacity(1)
+            } else {
+              if (defaultValue === "" && index === -1) {
                 setOpacity(1)
-              } catch (error) {
-                console.warn(`scrollToIndex error: ${error}`)
               }
             }
           }
@@ -789,12 +788,11 @@ export const Dropdown = forwardRef(
     ])
 
     return (
-      <View
-        style={StyleSheet.flatten([{ justifyContent: "center" }, style])}
-        ref={refDropDown}
-        onLayout={_measure}
-      >
+      <>
         <DropDownContainer
+          style={style}
+          onLayout={_measure}
+          ref={refDropDown}
           visible={visible}
           testID={testID}
           renderLeftIcon={renderLeftIcon}
@@ -812,7 +810,7 @@ export const Dropdown = forwardRef(
           iconStyle={iconStyle}
         />
         {_renderModal()}
-      </View>
+      </>
     )
   }
 ) as <T extends Record<string, any>>(
