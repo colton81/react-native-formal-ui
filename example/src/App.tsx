@@ -81,6 +81,231 @@ export default function App() {
           value={selected}
           renderItem={itemRender}
         />
+        <Dropdown
+          autoScroll={true}
+          dropdownPosition="auto"
+          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
+          showsVerticalScrollIndicator={false}
+          data={DummyData}
+          placeholder="Choose an option"
+          labelField="label"
+          valueField="value"
+          onChange={function (item: DummyDataType): void {
+            setSelected(item.value)
+          }}
+          value={selected}
+          renderItem={itemRender}
+        />
+        <Dropdown
+          autoScroll={true}
+          dropdownPosition="auto"
+          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
+          showsVerticalScrollIndicator={false}
+          data={DummyData}
+          placeholder="Choose an option"
+          labelField="label"
+          valueField="value"
+          onChange={function (item: DummyDataType): void {
+            setSelected(item.value)
+          }}
+          value={selected}
+          renderItem={itemRender}
+        />
+        <Dropdown
+          autoScroll={true}
+          dropdownPosition="auto"
+          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
+          showsVerticalScrollIndicator={false}
+          data={DummyData}
+          placeholder="Choose an option"
+          labelField="label"
+          valueField="value"
+          onChange={function (item: DummyDataType): void {
+            setSelected(item.value)
+          }}
+          value={selected}
+          renderItem={itemRender}
+        />
+        <Dropdown
+          autoScroll={true}
+          dropdownPosition="auto"
+          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
+          showsVerticalScrollIndicator={false}
+          data={DummyData}
+          placeholder="Choose an option"
+          labelField="label"
+          valueField="value"
+          onChange={function (item: DummyDataType): void {
+            setSelected(item.value)
+          }}
+          value={selected}
+          renderItem={itemRender}
+        />
+        <Dropdown
+          autoScroll={true}
+          dropdownPosition="auto"
+          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
+          showsVerticalScrollIndicator={false}
+          data={DummyData}
+          placeholder="Choose an option"
+          labelField="label"
+          valueField="value"
+          onChange={function (item: DummyDataType): void {
+            setSelected(item.value)
+          }}
+          value={selected}
+          renderItem={itemRender}
+        />
+        <Dropdown
+          autoScroll={true}
+          dropdownPosition="auto"
+          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
+          showsVerticalScrollIndicator={false}
+          data={DummyData}
+          placeholder="Choose an option"
+          labelField="label"
+          valueField="value"
+          onChange={function (item: DummyDataType): void {
+            setSelected(item.value)
+          }}
+          value={selected}
+          renderItem={itemRender}
+        />
+        <Dropdown
+          autoScroll={true}
+          dropdownPosition="auto"
+          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
+          showsVerticalScrollIndicator={false}
+          data={DummyData}
+          placeholder="Choose an option"
+          labelField="label"
+          valueField="value"
+          onChange={function (item: DummyDataType): void {
+            setSelected(item.value)
+          }}
+          value={selected}
+          renderItem={itemRender}
+        />
+        <Dropdown
+          autoScroll={true}
+          dropdownPosition="auto"
+          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
+          showsVerticalScrollIndicator={false}
+          data={DummyData}
+          placeholder="Choose an option"
+          labelField="label"
+          valueField="value"
+          onChange={function (item: DummyDataType): void {
+            setSelected(item.value)
+          }}
+          value={selected}
+          renderItem={itemRender}
+        />
+        <Dropdown
+          autoScroll={true}
+          dropdownPosition="auto"
+          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
+          showsVerticalScrollIndicator={false}
+          data={DummyData}
+          placeholder="Choose an option"
+          labelField="label"
+          valueField="value"
+          onChange={function (item: DummyDataType): void {
+            setSelected(item.value)
+          }}
+          value={selected}
+          renderItem={itemRender}
+        />
+        <Dropdown
+          autoScroll={true}
+          dropdownPosition="auto"
+          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
+          showsVerticalScrollIndicator={false}
+          data={DummyData}
+          placeholder="Choose an option"
+          labelField="label"
+          valueField="value"
+          onChange={function (item: DummyDataType): void {
+            setSelected(item.value)
+          }}
+          value={selected}
+          renderItem={itemRender}
+        />
+        <Dropdown
+          autoScroll={true}
+          dropdownPosition="auto"
+          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
+          showsVerticalScrollIndicator={false}
+          data={DummyData}
+          placeholder="Choose an option"
+          labelField="label"
+          valueField="value"
+          onChange={function (item: DummyDataType): void {
+            setSelected(item.value)
+          }}
+          value={selected}
+          renderItem={itemRender}
+        />
+        <Dropdown
+          autoScroll={true}
+          dropdownPosition="auto"
+          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
+          showsVerticalScrollIndicator={false}
+          data={DummyData}
+          placeholder="Choose an option"
+          labelField="label"
+          valueField="value"
+          onChange={function (item: DummyDataType): void {
+            setSelected(item.value)
+          }}
+          value={selected}
+          renderItem={itemRender}
+        />
+        <Dropdown
+          autoScroll={true}
+          dropdownPosition="auto"
+          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
+          showsVerticalScrollIndicator={false}
+          data={DummyData}
+          placeholder="Choose an option"
+          labelField="label"
+          valueField="value"
+          onChange={function (item: DummyDataType): void {
+            setSelected(item.value)
+          }}
+          value={selected}
+          renderItem={itemRender}
+        />
+        <Dropdown
+          autoScroll={true}
+          dropdownPosition="auto"
+          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
+          showsVerticalScrollIndicator={false}
+          data={DummyData}
+          placeholder="Choose an option"
+          labelField="label"
+          valueField="value"
+          onChange={function (item: DummyDataType): void {
+            setSelected(item.value)
+          }}
+          value={selected}
+          renderItem={itemRender}
+        />
+        <Dropdown
+          autoScroll={true}
+          dropdownPosition="auto"
+          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
+          showsVerticalScrollIndicator={false}
+          data={DummyData}
+          placeholder="Choose an option"
+          labelField="label"
+          valueField="value"
+          onChange={function (item: DummyDataType): void {
+            setSelected(item.value)
+          }}
+          value={selected}
+          renderItem={itemRender}
+        />
       </View>
     </View>
   )
