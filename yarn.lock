@@ -9777,17 +9777,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react-native@npm:^0.510.0":
-  version: 0.510.0
-  resolution: "lucide-react-native@npm:0.510.0"
-  peerDependencies:
-    react: ^16.5.1 || ^17.0.0 || ^18.0.0
-    react-native: "*"
-    react-native-svg: ^12.0.0 || ^13.0.0 || ^14.0.0 || ^15.0.0
-  checksum: 86d0f5239dbb9bb3afed631586435a002aeea12d3d84f9e661b6cd578b101a55c9a75a66c2be4e91b50eefce07787cf38a5d696c74d7b73e7403583b951aef58
-  languageName: node
-  linkType: hard
-
 "macos-release@npm:^3.1.0":
   version: 3.3.0
   resolution: "macos-release@npm:3.3.0"
@@ -11974,7 +11963,6 @@ __metadata:
     jest: ^29.7.0
     lefthook: ^1.11.13
     lodash: ^4.17.21
-    lucide-react-native: ^0.510.0
     prettier: ^3.0.3
     react: 19.0.0
     react-native: 0.79.2
@@ -11986,6 +11974,7 @@ __metadata:
   peerDependencies:
     react: "*"
     react-native: "*"
+    react-native-svg: "*"
   languageName: unknown
   linkType: soft
 

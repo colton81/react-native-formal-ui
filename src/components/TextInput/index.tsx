@@ -9,7 +9,7 @@ import {
   I18nManager
 } from "react-native"
 import type { CTextInput } from "./model"
-import { CircleX } from "lucide-react-native"
+import { CircleX } from "../../icons/CircleX"
 
 export const TextInput: CTextInput = (props) => {
   const {
@@ -48,13 +48,15 @@ export const TextInput: CTextInput = (props) => {
         return (
           <TouchableOpacity onPress={() => onChange("")}>
             <CircleX
-              style={StyleSheet.flatten([
+              width={20}
+              height={20}
+              style={[
                 {
                   width: 20,
                   height: 20
                 },
                 iconStyle
-              ])}
+              ]}
             />
           </TouchableOpacity>
         )

@@ -1,12 +1,6 @@
 import _get from "lodash/get"
-import { ChevronDown } from "lucide-react-native"
-import {
-  TouchableOpacity,
-  View,
-  Text,
-  StyleSheet,
-  I18nManager
-} from "react-native"
+import { TouchableOpacity, View, Text, I18nManager } from "react-native"
+import { ChevronDown } from "../../icons/ChevronDown"
 type DropDownContainerProps = {
   visible?: boolean
   testID?: string
@@ -70,13 +64,7 @@ export const DropDownContainer = (props: DropDownContainerProps) => {
         {props.renderRightIcon ? (
           props.renderRightIcon(props.visible)
         ) : (
-          <ChevronDown
-            color={props.iconColor}
-            style={StyleSheet.flatten([
-              { tintColor: props.iconColor, width: 20, height: 20 },
-              props.iconStyle
-            ])}
-          />
+          <ChevronDown color={props.iconColor} width={20} height={20} />
         )}
       </View>
     </TouchableOpacity>
