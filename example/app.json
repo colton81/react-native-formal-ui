@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "formalui.example"
+      "bundleIdentifier": "react-native-formal-ui.example"
     },
     "android": {
       "adaptiveIcon": {
@@ -22,7 +22,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "formalui.example"
+      "package": "react-native-formal-ui.example"
     },
     "web": {
       "favicon": "./assets/favicon.png"
