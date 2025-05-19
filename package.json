@@ -56,10 +56,7 @@
     "url": "https://github.com/colton81/react-native-formal-ui/issues"
   },
   "homepage": "https://github.com/colton81/react-native-formal-ui#readme",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "private": true,
+  
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
@@ -100,32 +97,6 @@
     "example"
   ],
   "packageManager": "yarn@3.6.1",
-  "jest": {
-    "preset": "react-native",
-    "modulePathIgnorePatterns": [
-      "<rootDir>/example/node_modules",
-      "<rootDir>/lib/"
-    ]
-  },
-  "release-it": {
-    "git": {
-      "commitMessage": "chore: release ${version}",
-      "tagName": "v${version}"
-    },
-    "npm": {
-      "publish": true
-    },
-    "github": {
-      "release": true
-    },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "preset": {
-          "name": "angular"
-        }
-      }
-    }
-  },
   "prettier": {
     "quoteProps": "consistent",
     "singleQuote": true,
@@ -133,36 +104,8 @@
     "trailingComma": "es5",
     "useTabs": false
   },
-  "react-native-builder-bob": {
-    "source": "src",
-    "output": "lib",
-    "targets": [
-      [
-        "module",
-        {
-          "esm": true
-        }
-      ],
-      [
-        "typescript",
-        {
-          "project": "tsconfig.build.json"
-        }
-      ]
-    ]
-  },
-  "create-react-native-library": {
-    "languages": "js",
-    "type": "library",
-    "version": "0.50.3"
-  },
   "dependencies": {
     "@testing-library/react-native": "^13.2.0",
     "@types/lodash": "^4.17.16"
-  },
-  "commitlint": {
-    "extends": [
-      "/Users/coltonhillebrand/Documents/GitHub/react-native-formal-ui/.commitlintrc.js"
-    ]
   }
 }
