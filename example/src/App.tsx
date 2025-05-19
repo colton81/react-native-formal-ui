@@ -1,7 +1,7 @@
 import { View, StyleSheet, ScrollView, Button, Modal } from "react-native"
 import { useState } from "react"
 import { DummyData } from "./DummyData"
-import PopPicker from "./PopPicker"
+import { PopPickerExample } from "./PopPickerExample"
 
 export default function App() {
   const [selected, setSelected] = useState<string>("")
@@ -62,7 +62,7 @@ export default function App() {
         </View>
       </Modal>
       <View style={{ width: "100%", padding: 16, gap: 16 }}>
-        <PopPicker
+        <PopPickerExample
           data={DummyData}
           label="Select a fruit"
           displayKey={"label"}
@@ -72,7 +72,7 @@ export default function App() {
             setSelected(value)
           }}
         />
-        <PopPicker
+        <PopPickerExample
           data={DummyData}
           label="Select a fruit"
           displayKey={"label"}

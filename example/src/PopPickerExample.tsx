@@ -32,7 +32,7 @@ type PopPickerType = {
   extraValue?: string
 }
 
-export const PopPicker = ({
+export const PopPickerExample = ({
   data = [],
   label,
   displayKey,
@@ -275,4 +275,3 @@ const useStyle = () => {
     dropdown: {}
   })
 }
-export default PopPicker
