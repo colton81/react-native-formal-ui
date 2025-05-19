@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Pressable } from "react-native"
+import { Text, View, StyleSheet, Pressable, ScrollView } from "react-native"
 import { Dropdown } from "react-native-formal-ui"
 import { useState } from "react"
 import { DummyData, type DummyDataType } from "./DummyData"
@@ -29,8 +29,8 @@ export default function App() {
     )
   }
   return (
-    <View style={styles.container}>
-      <View style={{ width: "100%", padding: 16 }}>
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={{ width: "100%", padding: 16, gap: 16 }}>
         <Dropdown
           autoScroll={true}
           dropdownPosition="auto"
@@ -307,7 +307,7 @@ export default function App() {
           renderItem={itemRender}
         />
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
