@@ -1,310 +1,86 @@
-import { Text, View, StyleSheet, Pressable, ScrollView } from "react-native"
-import { Dropdown } from "react-native-formal-ui"
+import { View, StyleSheet, ScrollView, Button, Modal } from "react-native"
 import { useState } from "react"
-import { DummyData, type DummyDataType } from "./DummyData"
-import { CircleX } from "../../src/icons/CircleX"
+import { DummyData } from "./DummyData"
+import PopPicker from "./PopPicker"
 
 export default function App() {
   const [selected, setSelected] = useState<string>("")
-  const itemRender = (item: any) => {
-    // nested text in a text so we can change the style of extra value if we want to
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          paddingHorizontal: 8,
-          paddingLeft: 12
+  const [showModal, setShowModal] = useState(false)
+  return (
+    <ScrollView
+      contentContainerStyle={styles.container}
+      contentInset={{ top: 100 }}
+    >
+      <Button
+        title="Show Modal"
+        onPress={() => {
+          setShowModal(!showModal)
+        }}
+      />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={showModal}
+        onRequestClose={() => {
+          setShowModal(!showModal)
         }}
       >
-        <Text
-          numberOfLines={1}
+        <View
           style={{
-            fontSize: 16
+            flex: 1
           }}
         >
-          {item.value}
-        </Text>
-      </View>
-    )
-  }
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
+          <View
+            style={{
+              flex: 1
+            }}
+          >
+            <View
+              style={{
+                flexShrink: 1,
+                borderWidth: 0.5,
+                borderColor: "#EEEEEE",
+                backgroundColor: "white",
+                shadowColor: "#000",
+                shadowOffset: {
+                  width: 0,
+                  height: 1
+                },
+                shadowOpacity: 0.2,
+                shadowRadius: 1.41,
+                elevation: 2
+              }}
+            >
+              <Button
+                title="Close Modal"
+                onPress={() => {
+                  setShowModal(!showModal)
+                }}
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
       <View style={{ width: "100%", padding: 16, gap: 16 }}>
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
+        <PopPicker
           data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
+          label="Select a fruit"
+          displayKey={"label"}
+          selectionKey={"value"}
           value={selected}
-          renderItem={itemRender}
-          renderRightIcon={() => (
-            <Pressable>
-              <CircleX color={"red"} size={24} />
-            </Pressable>
-          )}
+          onValueChange={function (value: any): void {
+            setSelected(value)
+          }}
         />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
+        <PopPicker
           data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
+          label="Select a fruit"
+          displayKey={"label"}
+          selectionKey={"value"}
           value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
+          onValueChange={function (value: any): void {
+            setSelected(value)
           }}
-          value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
-          value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
-          value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
-          value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
-          value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
-          value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
-          value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
-          value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
-          value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
-          value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
-          value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
-          value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
-          value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
-          value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
-          value={selected}
-          renderItem={itemRender}
-        />
-        <Dropdown
-          autoScroll={true}
-          dropdownPosition="auto"
-          selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
-          showsVerticalScrollIndicator={false}
-          data={DummyData}
-          placeholder="Choose an option"
-          labelField="label"
-          valueField="value"
-          onChange={function (item: DummyDataType): void {
-            setSelected(item.value)
-          }}
-          value={selected}
-          renderItem={itemRender}
         />
       </View>
     </ScrollView>

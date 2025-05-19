@@ -1,7 +1,7 @@
 // Mock PixelRatio to prevent StyleSheet errors
 
 import { render, screen } from "@testing-library/react-native"
-import { Dropdown } from "../index"
+import { DropDown } from "../index"
 
 // Mock the necessary dependencies
 jest.mock("react-native/Libraries/Components/StatusBar/StatusBar", () => ({
@@ -37,7 +37,7 @@ describe("Dropdown Component", () => {
 
   it("renders correctly with default props", () => {
     render(
-      <Dropdown
+      <DropDown
         autoScroll={true}
         dropdownPosition="auto"
         selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}

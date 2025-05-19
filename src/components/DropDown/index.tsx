@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-shadow */
+import _assign from "lodash/assign"
 import _differenceWith from "lodash/differenceWith"
 import _findIndex from "lodash/findIndex"
 import _get from "lodash/get"
@@ -6,14 +7,12 @@ import _isEqual from "lodash/isEqual"
 
 import { debounce } from "lodash"
 import React, {
-  forwardRef,
   useCallback,
   useEffect,
   useImperativeHandle,
   useMemo,
   useRef,
-  useState,
-  type JSX
+  useState
 } from "react"
 import {
   Dimensions,
@@ -22,95 +21,28 @@ import {
   Keyboard,
   type KeyboardEvent,
   Modal,
+  Pressable,
   StatusBar,
   StyleSheet,
+  Text,
+  TouchableHighlight,
   TouchableWithoutFeedback,
   View,
   type ViewStyle
 } from "react-native"
 import type { DropdownProps, IDropdownRef } from "./model"
-import { useDeviceOrientation } from "../../hooks/useDeviceOrientation"
 import { useDetectDevice } from "../../hooks/useDetectDevice"
+import { useDeviceOrientation } from "../../hooks/useDeviceOrientation"
+import { styles } from "./styles"
 import { TextInput } from "../TextInput"
-import { DropDownContainer } from "./DropDownContainer"
-import { DropdownItem } from "./DropDownItem"
+import { ChevronDown } from "../../icons/ChevronDown"
 
 const { isTablet } = useDetectDevice
 
 const statusBarHeight: number = StatusBar.currentHeight || 0
 
-/**
- * A customizable dropdown component for React Native applications.
- *
- * @template T - The type of data items in the dropdown, must be a record with string keys
- * @component
- *
- * @example
- * ```jsx
- * <Dropdown
- *   data={[{ label: 'Option 1', value: '1' }, { label: 'Option 2', value: '2' }]}
- *   labelField="label"
- *   valueField="value"
- *   placeholder="Select an option"
- *   onChange={(item) => console.log(item)}
- * />
- * ```
- *
- * @property `data`: Record<string, any>[] - Array of objects to be used as dropdown items
- * @property `labelField`: string - Object field to display as label
- * @property `valueField`: string - Object field to use as value
- * @property `value`: any - Currently selected value
- * @property `onChange`: (item: T) => void - Callback when item is selected
- * @property `placeholder`: string - Text to display when no item is selected (default: "Select item")
- * @property `search`: boolean - Enable search functionality (default: false)
- * @property `searchField`: string - Field to use for searching (defaults to labelField if not provided)
- * @property `searchPlaceholder`: string - Placeholder for search input
- * @property `searchQuery`: (text: string, labelValue: string) => boolean - Custom search function
- * @property `renderItem`: React.ReactElement - Custom render function for dropdown items
- * @property `renderLeftIcon`: React.ReactElement - Custom render function for left icon
- * @property `renderRightIcon`: React.ReactElement - Custom render function for right icon
- * @property `renderInputSearch`: React.ReactElement - Custom render function for search input
- * @property `disable`: boolean - Disable dropdown (default: false)
- * @property `maxHeight`: number - Maximum height of dropdown (default: 340)
- * @property `minHeight`: number - Minimum height of dropdown (default: 0)
- * @property `style`: ViewStyle - Style for the dropdown container
- * @property `containerStyle`: ViewStyle - Style for the dropdown list container
- * @property `placeholderStyle`: TextStyle - Style for placeholder text
- * @property `selectedTextStyle`: TextStyle - Style for selected item text
- * @property `itemContainerStyle`: ViewStyle - Style for item containers
- * @property `itemTextStyle`: TextStyle - Style for item text
- * @property `inputSearchStyle`: TextStyle - Style for search input
- * @property `iconStyle`: ImageStyle - Style for dropdown icons
- * @property `activeColor`: string - Color for the active/selected item (default: "#0088ff")
- * @property `iconColor`: string - Color for icons (default: "gray")
- * @property `backgroundColor`: string - Background color for modal overlay
- * @property `inverted`: boolean - Invert the dropdown list display (default: true)
- * @property `keyboardAvoiding`: boolean - Adjust position to avoid keyboard (default: true)
- * @property `autoScroll`: boolean - Auto scroll to selected item (default: true)
- * @property `showsVerticalScrollIndicator`: boolean - Show scroll indicator (default: true)
- * @property `dropdownPosition`: 'auto' | 'top' | 'bottom' - Position of dropdown (default: "auto")
- * @property `flatListProps`: FlatListProps<any> - Props for the FlatList component
- * @property `confirmSelectItem`: boolean - Require confirmation before selecting an item
- * @property `onConfirmSelectItem`: (item: T) => void - Callback for confirming item selection
- * @property `onFocus`:  () => void - Callback when dropdown is focused (opened)
- * @property `onBlur`:  () => void - Callback when dropdown is blurred (closed)
- * @property `onChangeText`: (text: string) => void - Callback when search text changes
- * @property `testID`: string - Test ID for testing
- * @property `itemTestIDField`: string - Field to use for item test IDs
- * @property `accessibilityLabel`: string - Accessibility label
- * @property `itemAccessibilityLabelField`: string - Field to use for item accessibility labels
- * @property `mode`: 'default' | 'modal' | 'auto' - Display mode (default: "default")
- * @property `closeModalWhenSelectedItem`: boolean - Close dropdown after item selection (default: true)
- * @property `excludeItems`: T[] - Items to exclude from the dropdown list (default: [])
- * @property `excludeSearchItems`: T[] - Items to exclude from search results (default: [])
- * @property `selectedTextProps`: TextProps - Props for selected item text (default: {})
- * @property `itemTextProps`: TextProps - Props for item text (default: {})
- */
-export const Dropdown = forwardRef(
-  <T extends Record<string, any>>(
-    props: DropdownProps<T>,
-    ref: React.Ref<IDropdownRef>
-  ) => {
+export const DropDown = React.forwardRef<IDropdownRef, DropdownProps<any>>(
+  (props, currentRef) => {
     const orientation = useDeviceOrientation()
     const {
       testID,
@@ -130,7 +62,7 @@ export const Dropdown = forwardRef(
       valueField,
       searchField,
       value,
-      activeColor = "#0088ff",
+      activeColor = "#F6F7F8",
       iconColor = "gray",
       searchPlaceholder,
       searchPlaceholderTextColor = "gray",
@@ -161,10 +93,10 @@ export const Dropdown = forwardRef(
       mode = "default",
       closeModalWhenSelectedItem = true,
       excludeItems = [],
-      excludeSearchItems = [],
-      itemTextProps = {}
+      excludeSearchItems = []
     } = props
-    const refDropDown = useRef<View>(null)
+
+    const ref = useRef<View>(null)
     const refList = useRef<FlatList>(null)
     const [visible, setVisible] = useState<boolean>(false)
     const [currentValue, setCurrentValue] = useState<any>(null)
@@ -173,8 +105,8 @@ export const Dropdown = forwardRef(
     const [keyboardHeight, setKeyboardHeight] = useState<number>(0)
     const [searchText, setSearchText] = useState("")
     const [scrollToIndex, setScrollToIndex] = useState<number>(0)
+
     const { width: W, height: H } = Dimensions.get("window")
-    const [opacity, setOpacity] = useState(0)
     const styleContainerVertical: ViewStyle = useMemo(() => {
       return {
         backgroundColor: "rgba(0,0,0,0.1)",
@@ -188,7 +120,7 @@ export const Dropdown = forwardRef(
       }
     }, [W, orientation])
 
-    useImperativeHandle(ref, () => {
+    useImperativeHandle(currentRef, () => {
       return { open: eventOpen, close: eventClose }
     })
 
@@ -249,8 +181,9 @@ export const Dropdown = forwardRef(
     }, [disable, onBlur])
 
     const _measure = useCallback(() => {
-      if (refDropDown?.current) {
-        refDropDown.current.measureInWindow((pageX, pageY, width, height) => {
+      console.log("measure")
+      if (ref && ref?.current) {
+        ref.current.measureInWindow((pageX, pageY, width, height) => {
           let isFull = isTablet
             ? false
             : mode === "modal" || orientation === "LANDSCAPE"
@@ -335,9 +268,10 @@ export const Dropdown = forwardRef(
           data?.length > 0 &&
           listData?.length === data?.length
         ) {
-          if (refList?.current) {
+          if (refList && refList?.current) {
             const defaultValue =
               typeof value === "object" ? _get(value, valueField) : value
+
             const index = _findIndex(listData, (e) =>
               _isEqual(defaultValue, _get(e, valueField))
             )
@@ -346,11 +280,13 @@ export const Dropdown = forwardRef(
               index > -1 &&
               index <= listData?.length - 1
             ) {
-              //  scrollToSelectedItem()
-              setOpacity(1)
-            } else {
-              if (defaultValue === "" && index === -1) {
-                setOpacity(1)
+              try {
+                refList.current.scrollToIndex({
+                  index: index,
+                  animated: false
+                })
+              } catch (error) {
+                console.warn(`scrollToIndex error: ${error}`)
               }
             }
           }
@@ -374,8 +310,11 @@ export const Dropdown = forwardRef(
           setSearchText("")
           onSearch("")
         }
+        // only measure if the dropdown is going to be opened
+        if (!visible) _measure()
 
-        _measure()
+        // set the scroll index only if the dropdown is opened
+
         if (value) {
           const defaultValue =
             typeof value === "object" ? _get(value, valueField) : value
@@ -388,22 +327,25 @@ export const Dropdown = forwardRef(
             setScrollToIndex(index)
           }
         }
-        setVisible(visibleStatus)
-
         if (data) {
           const filterData = excludeData(data)
           setListData(filterData)
         }
 
         if (visibleStatus) {
-          onFocus?.()
+          if (onFocus) {
+            onFocus()
+          }
         } else {
-          onBlur?.()
+          if (onBlur) {
+            onBlur()
+          }
         }
 
         if (searchText.length > 0) {
           onSearch(searchText)
         }
+        setVisible(visibleStatus)
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
@@ -476,6 +418,7 @@ export const Dropdown = forwardRef(
 
     const onSelect = useCallback(
       (item: any) => {
+        console.log("onSelect", item)
         if (confirmSelectItem && onConfirmSelectItem) {
           return onConfirmSelectItem(item)
         }
@@ -503,6 +446,109 @@ export const Dropdown = forwardRef(
       ]
     )
 
+    const _renderDropdown = () => {
+      const isSelected = currentValue && _get(currentValue, valueField)
+      return (
+        <Pressable
+          ref={ref}
+          testID={testID}
+          accessible={!!accessibilityLabel}
+          accessibilityLabel={accessibilityLabel}
+          onPress={showOrClose}
+          style={({ pressed }) => [
+            styles.mainWrap,
+            {
+              opacity: pressed ? 0.5 : 1
+            },
+            style
+          ]}
+          onLayout={_measure}
+        >
+          <View style={styles.dropdown}>
+            {renderLeftIcon?.(visible)}
+            <Text
+              style={[
+                styles.textItem,
+                isSelected !== null ? selectedTextStyle : placeholderStyle
+              ]}
+              {...selectedTextProps}
+            >
+              {isSelected !== null
+                ? _get(currentValue, labelField)
+                : placeholder}
+            </Text>
+            {renderRightIcon ? (
+              renderRightIcon(visible)
+            ) : (
+              <ChevronDown
+                style={StyleSheet.flatten([
+                  styles.icon,
+                  { tintColor: iconColor },
+                  iconStyle
+                ])}
+              />
+            )}
+          </View>
+        </Pressable>
+      )
+    }
+
+    const _renderItem = useCallback(
+      ({ item, index }: { item: any; index: number }) => {
+        const isSelected = currentValue && _get(currentValue, valueField)
+        const selected = _isEqual(_get(item, valueField), isSelected)
+        _assign(item, { _index: index })
+        return (
+          <TouchableHighlight
+            key={index.toString()}
+            testID={_get(item, itemTestIDField || labelField)}
+            accessible={!!accessibilityLabel}
+            accessibilityLabel={_get(
+              item,
+              itemAccessibilityLabelField || labelField
+            )}
+            underlayColor={activeColor}
+            onPress={() => onSelect(item)}
+          >
+            <View
+              style={StyleSheet.flatten([
+                itemContainerStyle,
+                selected && {
+                  backgroundColor: activeColor
+                }
+              ])}
+            >
+              {renderItem ? (
+                renderItem(item, selected)
+              ) : (
+                <View style={styles.item}>
+                  <Text
+                    style={StyleSheet.flatten([styles.textItem, itemTextStyle])}
+                  >
+                    {_get(item, labelField)}
+                  </Text>
+                </View>
+              )}
+            </View>
+          </TouchableHighlight>
+        )
+      },
+      [
+        accessibilityLabel,
+        activeColor,
+        currentValue,
+
+        itemAccessibilityLabelField,
+        itemContainerStyle,
+        itemTestIDField,
+        itemTextStyle,
+        labelField,
+        onSelect,
+        renderItem,
+        valueField
+      ]
+    )
+
     const renderSearch = useCallback(() => {
       if (search) {
         if (renderInputSearch) {
@@ -518,17 +564,7 @@ export const Dropdown = forwardRef(
             <TextInput
               testID={testID + " input"}
               accessibilityLabel={accessibilityLabel + " input"}
-              style={[
-                {
-                  borderWidth: 0.5,
-                  borderColor: "#DDDDDD",
-                  paddingHorizontal: 8,
-                  marginBottom: 8,
-                  margin: 6,
-                  height: 45
-                },
-                inputSearchStyle
-              ]}
+              style={[styles.input, inputSearchStyle]}
               inputStyle={[inputSearchStyle]}
               value={searchText}
               autoCorrect={false}
@@ -580,42 +616,14 @@ export const Dropdown = forwardRef(
               initialScrollIndex={
                 scrollToIndex > -1 ? scrollToIndex : undefined
               }
-              onScrollToIndexFailed={scrollIndex}
-              initialNumToRender={Math.max(5, scrollToIndex + 2)}
               getItemLayout={(_, index) => ({
-                length: 60, // Make sure this matches the actual item height
-                offset: 60 * index,
+                length: 55, // Make sure this matches the actual item height
+                offset: 55 * index,
                 index
               })}
+              onScrollToIndexFailed={scrollIndex}
               data={listData}
-              inverted={isTopPosition ? inverted : false}
-              renderItem={({ item, index }: { item: any; index: number }) => {
-                return (
-                  <>
-                    {renderItem ? (
-                      <DropdownItem
-                        itemContainerStyle={itemContainerStyle}
-                        itemTextStyle={itemTextStyle}
-                        activeColor={activeColor}
-                        currentValue={currentValue}
-                        onSelect={onSelect}
-                        itemTestIDField={itemTestIDField}
-                        accessibilityLabel={accessibilityLabel}
-                        itemAccessibilityLabelField={
-                          itemAccessibilityLabelField
-                        }
-                        itemTextProps={itemTextProps}
-                        item={item}
-                        index={index}
-                        valueField={valueField}
-                        labelField={labelField}
-                      />
-                    ) : (
-                      renderItem
-                    )}
-                  </>
-                )
-              }}
+              renderItem={_renderItem}
               keyExtractor={(_item, index) => index.toString()}
               showsVerticalScrollIndicator={showsVerticalScrollIndicator}
             />
@@ -624,11 +632,7 @@ export const Dropdown = forwardRef(
 
         return (
           <TouchableWithoutFeedback>
-            <View
-              style={{
-                flexShrink: 1
-              }}
-            >
+            <View style={styles.flexShrink}>
               {isInverted && _renderListHelper()}
               {renderSearch()}
               {!isInverted && _renderListHelper()}
@@ -637,50 +641,37 @@ export const Dropdown = forwardRef(
         )
       },
       [
-        inverted,
-        renderSearch,
-        testID,
+        scrollToIndex,
+        _renderItem,
         accessibilityLabel,
         flatListProps,
-        scrollIndex,
-        scrollToIndex,
         listData,
+        inverted,
+        renderSearch,
+        scrollIndex,
         showsVerticalScrollIndicator,
-        renderItem,
-        itemContainerStyle,
-        itemTextStyle,
-        activeColor,
-        currentValue,
-        onSelect,
-        itemTestIDField,
-        itemAccessibilityLabelField,
-        valueField,
-        labelField,
-        itemTextProps
+        testID
       ]
     )
 
     const _renderModal = useCallback(() => {
       if (visible && position) {
         const { isFull, width, height, top, bottom, left } = position
+        const topVal = visible ? top : 0
 
         const onAutoPosition = () => {
           if (keyboardHeight > 0) {
             return bottom < keyboardHeight + height
           }
 
-          return bottom < H * 0.35
+          return bottom < (search ? 150 : 100)
         }
 
-        if (width && top && bottom) {
+        if (width && topVal && bottom) {
           const styleVertical: ViewStyle = {
             left: left,
             maxHeight: maxHeight,
-            minHeight: Math.min(
-              // Ensure we have space for at least 3 items or set minimum height
-              Math.max(minHeight, Math.min(listData.length, 3) * 50),
-              maxHeight
-            )
+            minHeight: minHeight
           }
           const isTopPosition =
             dropdownPosition === "auto"
@@ -689,7 +680,7 @@ export const Dropdown = forwardRef(
 
           let keyboardStyle: ViewStyle = {}
 
-          let extendHeight = !isTopPosition ? top : bottom
+          let extendHeight = !isTopPosition ? topVal : bottom
           if (
             keyboardAvoiding &&
             keyboardHeight > 0 &&
@@ -706,11 +697,12 @@ export const Dropdown = forwardRef(
               visible={visible}
               supportedOrientations={["landscape", "portrait"]}
               onRequestClose={showOrClose}
+              animationType="none"
             >
               <TouchableWithoutFeedback onPress={showOrClose}>
                 <View
                   style={StyleSheet.flatten([
-                    { opacity: opacity, flex: 1 },
+                    styles.flex1,
                     isFull && styleContainerVertical,
                     backgroundColor && { backgroundColor: backgroundColor },
                     keyboardStyle
@@ -718,41 +710,23 @@ export const Dropdown = forwardRef(
                 >
                   <View
                     style={StyleSheet.flatten([
-                      { flex: 1 },
+                      styles.flex1,
                       !isTopPosition
                         ? { paddingTop: extendHeight }
                         : {
                             justifyContent: "flex-end",
                             paddingBottom: extendHeight
                           },
-                      isFull && {
-                        alignItems: "center",
-                        justifyContent: "center"
-                      }
+                      isFull && styles.fullScreen,
+                      { zIndex: 4000, elevation: 4000 }
                     ])}
                   >
                     <View
                       style={StyleSheet.flatten([
+                        styles.container,
                         isFull ? styleHorizontal : styleVertical,
                         {
-                          width,
-                          flexShrink: 1,
-                          marginTop: 8,
-                          borderRadius: 10,
-                          overflow: "hidden",
-                          borderColor: "#676767",
-                          backgroundColor: "#fff",
-                          borderWidth: 1,
-                          // iOS shadow properties
-                          shadowColor: "#000",
-                          shadowOffset: {
-                            width: 0,
-                            height: 2
-                          },
-                          shadowOpacity: 0.9,
-                          shadowRadius: 3,
-                          // Required for Android shadow
-                          elevation: 4
+                          width
                         },
                         containerStyle
                       ])}
@@ -770,49 +744,26 @@ export const Dropdown = forwardRef(
       return null
     }, [
       visible,
+      search,
       position,
       keyboardHeight,
-      H,
       maxHeight,
       minHeight,
-      listData.length,
       dropdownPosition,
       keyboardAvoiding,
       showOrClose,
-      opacity,
       styleContainerVertical,
       backgroundColor,
-      styleHorizontal,
       containerStyle,
+      styleHorizontal,
       _renderList
     ])
 
     return (
       <>
-        <DropDownContainer
-          style={style}
-          onLayout={_measure}
-          ref={refDropDown}
-          visible={visible}
-          testID={testID}
-          renderLeftIcon={renderLeftIcon}
-          renderRightIcon={renderRightIcon}
-          showOrClose={showOrClose}
-          currentValue={currentValue}
-          placeholder={placeholder}
-          valueField={valueField}
-          labelField={labelField}
-          accessibilityLabel={accessibilityLabel}
-          selectedTextStyle={selectedTextStyle}
-          selectedTextProps={selectedTextProps}
-          placeholderStyle={placeholderStyle}
-          iconColor={iconColor}
-          iconStyle={iconStyle}
-        />
+        {_renderDropdown()}
         {_renderModal()}
       </>
     )
   }
-) as <T extends Record<string, any>>(
-  props: DropdownProps<T> & { ref?: React.Ref<IDropdownRef> }
-) => JSX.Element
+)

@@ -60,9 +60,10 @@ export const DropdownItem = ({
             borderBottomWidth: 0.5,
             borderBottomColor: "#676767",
             height: 60,
-            backgroundColor: selected ? activeColor : "#fff"
-          },
-          itemContainerStyle
+            backgroundColor: selected
+              ? activeColor
+              : itemContainerStyle?.backgroundColor
+          }
         ])}
       >
         {renderItem ? (

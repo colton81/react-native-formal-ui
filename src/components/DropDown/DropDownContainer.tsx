@@ -40,20 +40,23 @@ export const DropDownContainer = forwardRef<any, DropDownContainerProps>(
       >
         <View
           {...props}
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            height: 45,
-            borderWidth: 1,
-            borderRadius: 5,
-            paddingHorizontal: 8,
-            paddingLeft: 10,
-            borderColor: "#676767",
-            ...(props.style && typeof props.style === "object"
-              ? props.style
-              : {})
-          }}
+          style={[
+            {
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              height: 45,
+              borderWidth: 1,
+              borderRadius: 5,
+              paddingHorizontal: 8,
+              paddingLeft: 10,
+              borderColor: "#676767",
+              ...(props.style && typeof props.style === "object"
+                ? props.style
+                : {})
+            },
+            props.style
+          ]}
         >
           {props.renderLeftIcon?.(props.visible)}
           <Text
