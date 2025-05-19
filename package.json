@@ -94,7 +94,6 @@
     "react-native": "*",
     "react-native-svg": "*"
   },
-  "packageManager": "yarn@3.6.1",
   "jest": {
     "preset": "react-native",
     "modulePathIgnorePatterns": [
@@ -154,5 +153,6 @@
   "dependencies": {
     "@testing-library/react-native": "^13.2.0",
     "@types/lodash": "^4.17.16"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
