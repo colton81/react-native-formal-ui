@@ -4,7 +4,6 @@
   "description": "FormalUI is a premium React Native UI components library inspired by the elegant simplicity of iOS design, tailored for business and enterprise-grade mobile applications. Designed for seamless cross-platform consistency, it offers a meticulously crafted collection of components that deliver clarity, professionalism, and a polished user experience on both iOS and Android.Whether you’re building complex dashboards, financial tools, or internal business apps, Formal-UI provides a scalable design foundation with intuitive theming, accessibility, and high-performance components that feel at home in any professional environment.",
   "main": "./lib/module/index.js",
   "types": "./lib/typescript/src/index.d.ts",
-  "private": true,
   "exports": {
     ".": {
       "source": "./src/index.tsx",
@@ -57,7 +56,9 @@
     "url": "https://github.com/colton81/react-native-formal-ui/issues"
   },
   "homepage": "https://github.com/colton81/react-native-formal-ui#readme",
-  
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
@@ -98,6 +99,32 @@
     "example"
   ],
   "packageManager": "yarn@3.6.1",
+  "jest": {
+    "preset": "react-native",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/example/node_modules",
+      "<rootDir>/lib/"
+    ]
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": "chore: release ${version}",
+      "tagName": "v${version}"
+    },
+    "npm": {
+      "publish": true
+    },
+    "github": {
+      "release": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": {
+          "name": "angular"
+        }
+      }
+    }
+  },
   "prettier": {
     "quoteProps": "consistent",
     "singleQuote": true,
@@ -105,8 +132,36 @@
     "trailingComma": "es5",
     "useTabs": false
   },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "lib",
+    "targets": [
+      [
+        "module",
+        {
+          "esm": true
+        }
+      ],
+      [
+        "typescript",
+        {
+          "project": "tsconfig.build.json"
+        }
+      ]
+    ]
+  },
+  "create-react-native-library": {
+    "languages": "js",
+    "type": "library",
+    "version": "0.50.3"
+  },
   "dependencies": {
     "@testing-library/react-native": "^13.2.0",
     "@types/lodash": "^4.17.16"
+  },
+  "commitlint": {
+    "extends": [
+      "/Users/coltonhillebrand/Documents/GitHub/react-native-formal-ui/.commitlintrc.js"
+    ]
   }
 }
