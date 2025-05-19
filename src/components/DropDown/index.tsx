@@ -5,7 +5,7 @@ import _findIndex from "lodash/findIndex"
 import _get from "lodash/get"
 import _isEqual from "lodash/isEqual"
 
-import { debounce, over } from "lodash"
+import { debounce } from "lodash"
 import React, {
   useCallback,
   useEffect,
@@ -181,7 +181,6 @@ export const DropDown = React.forwardRef<IDropdownRef, DropdownProps<any>>(
     }, [disable, onBlur])
 
     const _measure = useCallback(() => {
-      console.log("measure")
       if (ref && ref?.current) {
         ref.current.measureInWindow((pageX, pageY, width, height) => {
           let isFull = isTablet
@@ -418,7 +417,6 @@ export const DropDown = React.forwardRef<IDropdownRef, DropdownProps<any>>(
 
     const onSelect = useCallback(
       (item: any) => {
-        console.log("onSelect", item)
         if (confirmSelectItem && onConfirmSelectItem) {
           return onConfirmSelectItem(item)
         }
@@ -540,12 +538,12 @@ export const DropDown = React.forwardRef<IDropdownRef, DropdownProps<any>>(
         accessibilityLabel,
         activeColor,
         currentValue,
-
         itemAccessibilityLabelField,
         itemContainerStyle,
         itemTestIDField,
         itemTextStyle,
         labelField,
+        listData.length,
         onSelect,
         renderItem,
         valueField
