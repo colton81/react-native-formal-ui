@@ -95,9 +95,7 @@
     "react-native": "*",
     "react-native-svg": "*"
   },
-  "workspaces": [
-    "example"
-  ],
+  
   "packageManager": "yarn@3.6.1",
   "jest": {
     "preset": "react-native",
