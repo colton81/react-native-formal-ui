@@ -5,7 +5,7 @@ import _findIndex from "lodash/findIndex"
 import _get from "lodash/get"
 import _isEqual from "lodash/isEqual"
 
-import { debounce } from "lodash"
+import { debounce, over } from "lodash"
 import React, {
   useCallback,
   useEffect,
@@ -311,7 +311,7 @@ export const DropDown = React.forwardRef<IDropdownRef, DropdownProps<any>>(
           onSearch("")
         }
         // only measure if the dropdown is going to be opened
-        if (!visible) _measure()
+        _measure()
 
         // set the scroll index only if the dropdown is opened
 
@@ -515,6 +515,9 @@ export const DropDown = React.forwardRef<IDropdownRef, DropdownProps<any>>(
                 itemContainerStyle,
                 selected && {
                   backgroundColor: activeColor
+                },
+                {
+                  borderBottomWidth: index === listData.length - 1 ? 0 : 0.5
                 }
               ])}
             >
@@ -621,6 +624,7 @@ export const DropDown = React.forwardRef<IDropdownRef, DropdownProps<any>>(
                 offset: 55 * index,
                 index
               })}
+              initialNumToRender={Math.max(5, listData.length)}
               onScrollToIndexFailed={scrollIndex}
               data={listData}
               renderItem={_renderItem}
@@ -717,13 +721,31 @@ export const DropDown = React.forwardRef<IDropdownRef, DropdownProps<any>>(
                             justifyContent: "flex-end",
                             paddingBottom: extendHeight
                           },
-                      isFull && styles.fullScreen,
-                      { zIndex: 4000, elevation: 4000 }
+                      {
+                        shadowColor: "#000",
+                        shadowOffset: {
+                          width: 0,
+                          height: 1
+                        },
+                        shadowOpacity: 0.2,
+                        shadowRadius: 1.41,
+                        elevation: 2
+                      },
+                      isFull && styles.fullScreen
                     ])}
                   >
                     <View
                       style={StyleSheet.flatten([
-                        styles.container,
+                        {
+                          flexShrink: 1,
+                          borderWidth: 0.5,
+                          borderColor: "#EEEEEE",
+                          backgroundColor: "white",
+
+                          marginTop: 8,
+                          borderRadius: 10,
+                          overflow: "hidden"
+                        },
                         isFull ? styleHorizontal : styleVertical,
                         {
                           width

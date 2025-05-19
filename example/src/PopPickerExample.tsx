@@ -165,7 +165,7 @@ export const PopPickerExample = ({
           }}
         >
           <DropDown
-            dropdownPosition="top"
+            dropdownPosition="auto"
             selectedTextProps={{ numberOfLines: 2, allowFontScaling: false }}
             showsVerticalScrollIndicator={false}
             style={[
